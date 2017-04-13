@@ -16,11 +16,8 @@ public class TinkaSample {
 	
 	@Test
 	public static void fetchUrl() throws InterruptedException{
-		
-		
-	//launching the browser
-	//System.setProperty("webdriver.gecko.driver", "D:\\BrowserExeFiles\\geckodriver.exe");
-	//setting desired capabilities
+	
+			//setting desired capabilities
 			//DesiredCapabilities a= DesiredCapabilities.firefox();
 			//a.setCapability(CapabilityType.ACCEPT_SSL_CERTS, true);
 	WebDriver driver= new FirefoxDriver();
@@ -40,15 +37,7 @@ public class TinkaSample {
 	searchTextBefore.click();
 	Thread.sleep(2000);
 	WebElement searchTextAfter=driver.findElement(By.xpath("//span[@class='tma_input__textarea tma_text__input_active']"));
-	/*Actions act=new Actions(driver);
-	act.moveToElement(searchText).perform();
-	act.click().sendKeys("muttertag").perform();
-	//JavascriptExecutor js=(JavascriptExecutor)driver;
-	//js.executeScript("document.getElementByXpath('//*[@id='tma_freeTextInput__input']/span').value='muttertag';");
-	Thread.sleep(6000);
-	//finding search text and applying click action in search button
-	//driver.findElement(By.xpath("//*[@id='tma_freeTextInput__input']/span")).sendKeys("muttertag");*/
-	//setAttribute(searchText,"value","muttertag");
+	
 	highLightElement1(driver,searchTextAfter);
 	
 		searchTextAfter.clear();
@@ -70,17 +59,21 @@ public class TinkaSample {
 	
 	String[]str=url.split(" ");
 	
+	System.out.println(str);
+	
 	System.out.println("url is = "+url);
 	
 	//driver.close();
 	
 	}
+	
 	public static void setAttribute(WebElement element, String attributeName, String value)
 	{
 	WrapsDriver wrappedElement = (WrapsDriver) element;
 	JavascriptExecutor js = (JavascriptExecutor)wrappedElement.getWrappedDriver();
 	js.executeScript("arguments[0].setAttribute(arguments[1],arguments[2])", element, attributeName, value);
 	}
+	
 	public static void highLightElement1(WebDriver driver, WebElement element) throws InterruptedException
 	{
 	JavascriptExecutor js=(JavascriptExecutor)driver; 
