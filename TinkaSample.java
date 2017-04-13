@@ -35,7 +35,11 @@ public class TinkaSample {
 	driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
 	
 	Thread.sleep(5000);
-	WebElement searchText=driver.findElement(By.xpath("//*[@id='tma_freeTextInput__input']/span"));
+	
+	WebElement searchTextBefore=driver.findElement(By.xpath("//span[@class='tma_text__input_inactive']"));
+	searchTextBefore.click();
+	Thread.sleep(2000);
+	WebElement searchTextAfter=driver.findElement(By.xpath("//span[@class='tma_input__textarea tma_text__input_active']"));
 	/*Actions act=new Actions(driver);
 	act.moveToElement(searchText).perform();
 	act.click().sendKeys("muttertag").perform();
@@ -45,23 +49,30 @@ public class TinkaSample {
 	//finding search text and applying click action in search button
 	//driver.findElement(By.xpath("//*[@id='tma_freeTextInput__input']/span")).sendKeys("muttertag");*/
 	//setAttribute(searchText,"value","muttertag");
-	highLightElement1(driver,searchText);
-	((JavascriptExecutor)driver).executeScript("document.getElementsById('tma_freeTextInput__input')[0].value='muttertag';",searchText); 
+	highLightElement1(driver,searchTextAfter);
+	
+		searchTextAfter.clear();
+		searchTextAfter.sendKeys("muttertag");
+	//((JavascriptExecutor)driver).executeScript("document.getElementsById('tma_freeTextInput__input')[0].value='muttertag';",searchText); 
 	//Thread.sleep(4000);
 	
-	WebElement searchButton=driver.findElement(By.xpath("//*[@id='tma_app']/main/section/div/div[3]/div/div[2]/i"));
+	WebElement searchButton=driver.findElement(By.xpath("//i[@class='tma_input__after tma_icon tma_icon__enter_outline']"));
 	
 	searchButton.click();
 	
 	//fetching the url
 	
-	new WebDriverWait(driver, 10).until(ExpectedConditions.presenceOfElementLocated(By.xpath("//*[@id='tma_app']/main/section/div/div[1]/div[2]/div/div[2]/div")));
+	new WebDriverWait(driver, 20).until(ExpectedConditions.presenceOfElementLocated(By.xpath("//*[@id='tma_app']/main/section/div/div[1]/div[2]/div/div[2]/div")));
 	
-	WebElement videoUrl=driver.findElement(By.xpath("//*[@id='tma_app']/main/section/div/div[1]/div[2]/div/div[2]/div"));
+	WebElement videoUrl=driver.findElement(By.xpath("//*[@id='tma_app']/main/section/div/div[1]/div[2]/div/div/div[2]/div/div"));
 	
-	String url=videoUrl.getAttribute("href");
+	String url=videoUrl.getAttribute("onclick");
+	
+	String[]str=url.split(" ");
 	
 	System.out.println("url is = "+url);
+	
+	//driver.close();
 	
 	}
 	public static void setAttribute(WebElement element, String attributeName, String value)
@@ -81,5 +92,5 @@ public class TinkaSample {
 	js.executeScript("arguments[0].setAttribute('style','border: solid 2px white')", element); 
 
 	}
-
+	
 }
